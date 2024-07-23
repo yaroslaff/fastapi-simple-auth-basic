@@ -4,8 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "fastapi-simple-auth-basic"
-# dynamic = ["version"]
-version = "0.0.4"
+dynamic = ["version"]
 description = 'FastAPI simple authentication (basic theme)'
 readme = "README.md"
 requires-python = ">=3.7"
@@ -29,6 +28,9 @@ classifiers = [
 dependencies = [
   
 ]
+
+[tool.hatch.version]
+path = 'fastapi_simple_auth_basic/__init__.py'
 
 
 [project.urls]
