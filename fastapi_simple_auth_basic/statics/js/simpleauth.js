@@ -258,8 +258,8 @@ function verify_resend_btn_onclick(){
 
     const btn = document.getElementById("fastapi-simple-auth-verify-resend-btn")
 
-    if(! get_captcha_token()){
-        open_modal_close("Please complete captcha")
+    if( missed_captcha()){
+        //open_modal_close("Please complete captcha")
         return
     }
 
@@ -319,8 +319,7 @@ function verify_resend_btn_onclick(){
     const user_el = document.getElementById('username')
     const pass_el = document.getElementById('password')
 
-    if(!get_captcha_token()){
-        open_modal_close("Please complete captcha")
+    if(missed_captcha()){
         return
     }
 
@@ -358,11 +357,24 @@ function verify_resend_btn_onclick(){
 }
   
 
+function captcha_enabled(){
+    return settings.turnstile_sitekey != null;
+}
+
 function get_captcha_token(){
     if(settings.turnstile_sitekey){
         return turnstile.getResponse();
     }else{
         return null
+    }
+}
+
+function missed_captcha(){
+    if(captcha_enabled() & !get_captcha_token()){
+        open_modal_close("Please complete captcha")
+        return true
+    }else{
+        return false
     }
 }
 
